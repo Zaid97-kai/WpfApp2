@@ -8,7 +8,7 @@
         Title="Привязка" Height="400" Width="600">
     <Window.Resources>
         <DataTemplate x:Key="ItemTemplate">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Width="550" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock FontSize="16" Text="{Binding Path=Name}" 
                                    HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <TextBlock Margin="10 0 0 0" FontSize="16" Text="{Binding Path=Group.NumberGroup}" 
@@ -26,7 +26,7 @@
             <TextBlock Text="Имя: " HorizontalAlignment="Right" VerticalAlignment="Center" Width="100"></TextBlock>
             <TextBox x:Name="NameNewStudent" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"></TextBox>
             <TextBlock Text="Номер группы: " Margin="20 0 0 0" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-            <ComboBox x:Name="NumberGroupNewStudent" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"></ComboBox>
+            <ComboBox x:Name="NumberGroupNewStudent" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" DisplayMemberPath="NumberGroup"></ComboBox>
             <Button x:Name="AddStudentButton" Margin="20 0 0 0" Click="AddStudentButton_Click" Content="Добавить" VerticalAlignment="Center"
                     BorderThickness="0" Background="White"></Button>
         </StackPanel>
@@ -39,5 +39,13 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Имя: " HorizontalAlignment="Right" VerticalAlignment="Center" Width="100"></TextBlock>
+            <TextBox x:Name="NameEditStudent" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"></TextBox>
+            <TextBlock Text="Номер группы: " Margin="20 0 0 0" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+            <TextBox x:Name="NumberGroupEditStudent" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"></TextBox>
+            <Button x:Name="EditStudentButton" Margin="20 0 0 0" Click="EditStudentButton_Click" Content="Изменить" VerticalAlignment="Center"
+                    BorderThickness="0" Background="White"></Button>
+        </StackPanel>
     </Grid>
 </Window>
