@@ -39,10 +39,12 @@ namespace WpfApp2
                 Name = "Рахимов Р.Р.",
                 Group = groups[0]
             });
-            StudentsList.ItemsSource = students;
-            NumberGroupNewStudent.ItemsSource = groups;
-            //StudentsList.ItemsSource = _diaryDBEntities.Students.ToList();
+            //StudentsList.ItemsSource = students;
+            //NumberGroupNewStudent.ItemsSource = groups;
+            StudentsList.ItemsSource = _diaryDBEntities.Students.ToList();
+            NumberGroupNewStudent.ItemsSource = _diaryDBEntities.Groups.ToList();
         }
+
         private void StudentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NameEditStudent.Text = ((Student)StudentsList.SelectedItem).Name;
@@ -51,18 +53,43 @@ namespace WpfApp2
 
         private void AddStudentButton_Click(object sender, RoutedEventArgs e)
         {
-            Student NewStudent = new Student()
+            User NewUser = new User()
             {
                 Id = new Random().Next(0, 1000),
+                Log = "Test",
+                Password = "TestPassword",
+                Email = "TestEmail"
+            };
+
+            _diaryDBEntities.Users.Add(NewUser);
+            _diaryDBEntities.SaveChanges();
+
+            Student NewStudent = new Student()
+            {
+                Id = NewUser.Id,
                 Name = NameNewStudent.Text,
                 Group = (Group)NumberGroupNewStudent.SelectedItem
             };
-            this.students.Add(NewStudent);
+            NewUser.Student = NewStudent;
+            _diaryDBEntities.SaveChanges();
+
+            StudentsList.ItemsSource = _diaryDBEntities.Students.ToList();
         }
 
         private void EditStudentButton_Click(object sender, RoutedEventArgs e)
         {
+            Student student = (Student)StudentsList.SelectedItem;
+            student.Name = NameEditStudent.Text;
+            foreach (var item in _diaryDBEntities.Groups)
+            {
+                if (item.NumberGroup == Convert.ToInt32(NumberGroupEditStudent.Text))
+                {
+                    student.Group = item;
+                }
+            }
+            _diaryDBEntities.SaveChanges();
 
+            StudentsList.ItemsSource = _diaryDBEntities.Students.ToList();
         }
     }
 }
